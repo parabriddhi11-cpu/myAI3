@@ -1,47 +1,96 @@
+/* -------------------------------------------------------
+   Core Tailwind & Animate imports
+------------------------------------------------------- */
 @import "tailwindcss";
 @import "tw-animate-css";
 
+/* Allow dark mode variants */
 @custom-variant dark (&:is(.dark *));
 
+/* -------------------------------------------------------
+   Finatic AI Brand Tokens (NEW)
+   These sit on top of your OKLCH palette
+------------------------------------------------------- */
+
+:root {
+  /* Finatic Blue – brand identity */
+  --fin-blue-500: #0F63D8;
+  --fin-blue-600: #0B4FB0;
+  --fin-blue-700: #08408A;
+  --fin-blue-soft: rgba(15,99,216,0.08);
+
+  /* Gradient backgrounds for hero + cards */
+  --fin-gradient-hero: linear-gradient(180deg, #f6fbff 0%, #eaf3ff 60%);
+  --fin-gradient-card: linear-gradient(180deg, #f7fbff 0%, #ffffff 90%);
+  --fin-glass: rgba(255,255,255,0.75);
+
+  /* Finance UI specifics */
+  --fin-chip-bg: rgba(15,99,216,0.10);
+  --fin-chip-border: rgba(15,99,216,0.15);
+  --fin-money-tint: rgba(15,99,216,0.05);
+
+  /* Glow utilities */
+  --fin-glow-blue: 0 0 24px rgba(15,99,216,0.35);
+
+  /* Piggy theme */
+  --fin-piggy-pink: #F5F7FF;
+  --fin-piggy-shadow: 0 12px 30px rgba(10,20,40,0.08);
+}
+
+/* -------------------------------------------------------
+   Inject custom theme vars into Tailwind theme
+------------------------------------------------------- */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-inter);
   --font-mono: var(--font-geist-mono);
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
-  --color-ring: var(--ring);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
   --color-input: var(--input);
   --color-border: var(--border);
-  --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
-  --color-card: var(--card);
+  --color-ring: var(--ring);
+
+  /* Finance charts (unchanged but tidied) */
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  /* Sidebars */
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Radii */
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
 }
+
+/* -------------------------------------------------------
+   Your existing OKLCH palette (kept, unchanged)
+------------------------------------------------------- */
 
 :root {
   --radius: 0.625rem;
@@ -63,11 +112,13 @@
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
+
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
+
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
@@ -78,6 +129,9 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
+/* -------------------------------------------------------
+   Dark Mode — same functional palette, Finatic-friendly
+------------------------------------------------------- */
 .dark {
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
@@ -85,23 +139,32 @@
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
+
   --primary: oklch(0.922 0 0);
   --primary-foreground: oklch(0.205 0 0);
+
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
+
   --muted: oklch(0.269 0 0);
   --muted-foreground: oklch(0.708 0 0);
+
   --accent: oklch(0.269 0 0);
   --accent-foreground: oklch(0.985 0 0);
+
   --destructive: oklch(0.704 0.191 22.216);
+
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.556 0 0);
+
+  /* Charts and sidebar preserved */
   --chart-1: oklch(0.488 0.243 264.376);
   --chart-2: oklch(0.696 0.17 162.48);
   --chart-3: oklch(0.769 0.188 70.08);
   --chart-4: oklch(0.627 0.265 303.9);
   --chart-5: oklch(0.645 0.246 16.439);
+
   --sidebar: oklch(0.205 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
   --sidebar-primary: oklch(0.488 0.243 264.376);
@@ -112,6 +175,9 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+/* -------------------------------------------------------
+   Base Layer (Tailwind apply)
+------------------------------------------------------- */
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -119,8 +185,70 @@
   body {
     @apply bg-background text-foreground;
   }
-  
+
+  /* Finance-centric link pill */
   .single-char-link {
-    @apply bg-card text-card-foreground px-2 py-1 rounded-full hover:underline hover:scale-105 transition-all duration-100 !text-foreground !no-underline border-input border;
+    @apply bg-card text-card-foreground px-2 py-1 rounded-full
+      hover:underline hover:scale-105 transition-all duration-100 
+      !text-foreground !no-underline border-input border;
   }
+}
+
+/* -------------------------------------------------------
+   Finatic AI Custom Utility Classes (NEW)
+------------------------------------------------------- */
+
+/* Subtle financial background blobs */
+.money-bg {
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 10% 20%, var(--fin-money-tint) 0 120px, transparent 121px),
+    radial-gradient(circle at 85% 80%, rgba(11,79,176,0.04) 0 160px, transparent 161px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Chip buttons (for APY / CD Quick Actions) */
+.fin-chip {
+  background: var(--fin-chip-bg);
+  border: 1px solid var(--fin-chip-border);
+  color: var(--fin-blue-600);
+  padding: 8px 14px;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: all .15s ease;
+}
+.fin-chip:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 18px rgba(15,99,216,0.15);
+}
+
+/* Glass card sections */
+.fin-card {
+  background: var(--fin-glass);
+  backdrop-filter: blur(20px);
+  border-radius: 16px;
+  box-shadow: var(--fin-piggy-shadow);
+}
+
+/* Finance badge (APY % highlight) */
+.fin-badge {
+  background: var(--fin-blue-soft);
+  color: var(--fin-blue-700);
+  padding: 3px 8px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+/* Hero gradient used in right-side column */
+.fin-hero {
+  background: var(--fin-gradient-hero);
+}
+
+/* Glow on focus/hover */
+.fin-glow:hover,
+.fin-glow:focus {
+  box-shadow: var(--fin-glow-blue);
 }
